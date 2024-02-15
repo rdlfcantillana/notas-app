@@ -13,7 +13,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    fetch('http://localhost:3000/signin', {
+    fetch('https://movil-app-production.up.railway.app/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

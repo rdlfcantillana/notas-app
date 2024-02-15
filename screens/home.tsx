@@ -70,20 +70,20 @@ const fetchFoldersAndNotes = async () => {
 
   try {
     // Carga las carpetas
-    const foldersResponse = await axios.get<Folder[]>('http://localhost:3000/getuserfolders', {
+    const foldersResponse = await axios.get<Folder[]>('https://movil-app-production.up.railway.app/getuserfolders', {
       headers: { Authorization: `Bearer ${token}` },
     });
     setFolders(foldersResponse.data);
 
     // Carga todas las notas sin carpeta
-    const noFolderNotesResponse = await axios.get<Note[]>('http://localhost:3000/getnofoldernotes', {
+    const noFolderNotesResponse = await axios.get<Note[]>('https://movil-app-production.up.railway.app/getnofoldernotes', {
       headers: { Authorization: `Bearer ${token}` },
     });
     setNotes(noFolderNotesResponse.data);
 
     // Carga las notas de cada carpeta y las añade al estado de notas
     for (const folder of foldersResponse.data) {
-      const folderNotesResponse = await axios.get<Note[]>(`http://localhost:3000/getfoldernotes/${folder._id}`, {
+      const folderNotesResponse = await axios.get<Note[]>(`https://movil-app-production.up.railway.app/getfoldernotes/${folder._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotes(prevNotes => [...prevNotes, ...folderNotesResponse.data]);
@@ -117,7 +117,7 @@ const fetchFoldersAndNotes = async () => {
     // Actualizar el título si ha cambiado
     if (selectedNote.title !== noteName) {
       try {
-        const updateTitleResponse = await axios.put(`http://localhost:3000/modifynotetitle`, {
+        const updateTitleResponse = await axios.put(`https://movil-app-production.up.railway.app/modifynotetitle`, {
           noteId: selectedNote._id,
           newTitle: noteName,
         }, {
@@ -138,7 +138,7 @@ const fetchFoldersAndNotes = async () => {
     // Actualizar la descripción si ha cambiado y el título fue actualizado con éxito
     if (selectedNote.desc !== noteDescription && isUpdateSuccessful) {
       try {
-        const updateContentResponse = await axios.put(`http://localhost:3000/modifynotecontent`, {
+        const updateContentResponse = await axios.put(`https://movil-app-production.up.railway.app/modifynotecontent`, {
           noteId: selectedNote._id,
           newContent: noteDescription,
         }, {
@@ -187,7 +187,7 @@ const handleDeleteNote = async (noteId: string) => {
   if (!token) return;
 
   try {
-    const response = await axios.delete(`http://localhost:3000/deletenoteid`, {
+    const response = await axios.delete(`https://movil-app-production.up.railway.app/deletenoteid`, {
       headers: { Authorization: `Bearer ${token}` },
       data: { noteId }, // axios necesita el campo `data` para las peticiones DELETE
     });
@@ -209,7 +209,7 @@ const handleDeleteNote = async (noteId: string) => {
     const token = await AsyncStorage.getItem('userToken');
     if (!token) return;
     try {
-      const response = await axios.post<Note>('http://localhost:3000/createnote', {
+      const response = await axios.post<Note>('https://movil-app-production.up.railway.app/createnote', {
         noteName,
         noteDescription,
         noteColor: "E2DCC6",
@@ -302,7 +302,7 @@ const toggleFavorite = async (noteId: string) => {
       return;
     }
 
-    const response = await axios.post(`http://localhost:3000/togglefavorite/${noteId}`, {}, {
+    const response = await axios.post(`https://movil-app-production.up.railway.app/togglefavorite/${noteId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
     refreshNotes();

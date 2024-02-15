@@ -36,7 +36,7 @@ const ProfileScreen: React.FC = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:3000/getuserdata', {
+        const response = await axios.get('https://movil-app-production.up.railway.app/getuserdata', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -74,7 +74,7 @@ const ProfileScreen: React.FC = () => {
         newUsername: userData.username,
       };
 
-      const response = await axios.put('http://localhost:3000/modifyusernames', updatedData, {
+      const response = await axios.put('https://movil-app-production.up.railway.app/modifyusernames', updatedData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -115,7 +115,7 @@ const ProfileScreen: React.FC = () => {
       };
 
       const response = await axios.put<ApiResponse>(
-        'http://localhost:3000/modifyuserpassword',
+        'https://movil-app-production.up.railway.app/modifyuserpassword',
         requestBody,
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -143,7 +143,7 @@ const ProfileScreen: React.FC = () => {
         return;
       }
 
-      const response = await axios.delete<ApiResponse>('http://localhost:3000/deleteusernotes', {
+      const response = await axios.delete<ApiResponse>('https://movil-app-production.up.railway.app/deleteusernotes', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -171,7 +171,7 @@ const ProfileScreen: React.FC = () => {
         return;
       }
   
-      const response = await axios.delete('http://localhost:3000/deleteuser', {
+      const response = await axios.delete('https://movil-app-production.up.railway.app/deleteuser', {
         headers: { Authorization: `Bearer ${token}` },
       });
   

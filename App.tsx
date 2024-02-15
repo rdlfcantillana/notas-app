@@ -14,11 +14,13 @@ import Home from './screens/home';
 import Profile from './screens/profile';
 import Categories from './screens/categories';
 import Favoritos from './screens/favoritos';
+import { AppRegistry } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+AppRegistry.registerComponent("notas-app", () => App);
 
 const App = () => {
+
   return (
     <NoteProvider>
     <NavigationContainer>
@@ -44,5 +46,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 
 export default App;

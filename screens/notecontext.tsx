@@ -34,7 +34,7 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     if (!token) return;
 
     try {
-      const response = await axios.get<Note[]>('http://localhost:3000/getnofoldernotes', {
+      const response = await axios.get<Note[]>('https://movil-app-production.up.railway.app/getnofoldernotes', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotes(response.data);
@@ -52,7 +52,7 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     if (!token) return;
 
     try {
-      await axios.put(`http://localhost:3000/togglefavorite/${noteId}`, null, {
+      await axios.put(`https://movil-app-production.up.railway.app/togglefavorite/${noteId}`, null, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

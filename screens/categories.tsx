@@ -40,7 +40,7 @@ const Categories = () => {
 
     const loadFolders = async (authToken: string) => {
       try {
-        const response = await axios.get<Folder[]>('http://localhost:3000/getuserfolders', {
+        const response = await axios.get<Folder[]>('https://movil-app-production.up.railway.app/getuserfolders', {
           headers: { Authorization: `Bearer ${authToken}` },
         });
         setFolders(response.data);
@@ -80,7 +80,7 @@ const Categories = () => {
   if (!token) return;
 
   try {
-    const response = await axios.post('http://localhost:3000/createfolder', { folderName: newFolderName }, {
+    const response = await axios.post('https://movil-app-production.up.railway.app/createfolder', { folderName: newFolderName }, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -99,7 +99,7 @@ const Categories = () => {
     if (!token) return;
 
     try {
-      await axios.put('http://localhost:3000/modifyfoldername', {
+      await axios.put('https://movil-app-production.up.railway.app/modifyfoldername', {
         folderId,
         newFolderName: newName,
       }, {
@@ -116,7 +116,7 @@ const Categories = () => {
     if (!token) return;
 
     try {
-      await axios.delete(`http://localhost:3000/deletefolder`, {
+      await axios.delete(`https://movil-app-production.up.railway.app/deletefolder`, {
         headers: { Authorization: `Bearer ${token}` },
         data: { folderId },
       });
@@ -131,7 +131,7 @@ const Categories = () => {
     if (!token) return;
 
     try {
-      await axios.delete('http://localhost:3000/deleteallfolders', {
+      await axios.delete('https://movil-app-production.up.railway.app/deleteallfolders', {
         headers: { Authorization: `Bearer ${token}` },
       });
       loadFolders(token);

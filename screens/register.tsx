@@ -20,7 +20,7 @@ const Register = () => {
       password: password
     };
 
-    fetch('http://localhost:3000/signup', {
+    fetch('https://movil-app-production.up.railway.app/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

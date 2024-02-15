@@ -35,7 +35,7 @@ const Favoritos: React.FC = () => {
       return;
     }
     try {
-      const response = await axios.get<Note[]>('http://localhost:3000/getFavoriteNotes', {
+      const response = await axios.get<Note[]>('https://movil-app-production.up.railway.app/getFavoriteNotes', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFavoritos(response.data.filter(note => note.isFavorite));
@@ -62,7 +62,7 @@ const Favoritos: React.FC = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:3000/modifynotetitle`, {
+      const response = await axios.put(`https://movil-app-production.up.railway.app/modifynotetitle`, {
         noteId: selectedNote._id,
         newTitle: noteTitle,
         newContent: noteDescription,
@@ -100,7 +100,7 @@ const Favoritos: React.FC = () => {
         return;
       }
 
-      const response = await axios.post(`http://localhost:3000/togglefavorite/${noteId}`, {}, {
+      const response = await axios.post(`https://movil-app-production.up.railway.app/togglefavorite/${noteId}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {

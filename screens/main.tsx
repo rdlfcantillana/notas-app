@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions } from 'rea
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/navigationTypes';
 
+
 const { width, height } = Dimensions.get('window'); // Get the screen's width and height
 
 type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
