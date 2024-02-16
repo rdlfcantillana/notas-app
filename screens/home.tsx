@@ -335,6 +335,7 @@ const toggleFavorite = async (noteId: string) => {
     <View style={styles.container}>
       
       <ScrollView>
+        {/* Renderizado de las notas */}
         {sortedNotesByFolder.map(([folderId, notes]) => (
           <View key={folderId}>
             {/* Muestra el nombre de la carpeta */}
@@ -347,21 +348,20 @@ const toggleFavorite = async (noteId: string) => {
                 <Text style={styles.title}>{note.title}</Text>
                 <Text>{note.desc}</Text>
                 <View style={styles.noteActions}>
-                  <Button title="Edit" onPress={() => handleEditPress(note)} />
-                  
+                  <TouchableOpacity onPress={() => handleEditPress(note)} style={styles.actionButton}>
+                    <Text style={styles.actionText}>EDIT</Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => toggleFavorite(note._id)}>
-        <Text style={{color: note.isFavorite ? 'gold' : 'grey'}}>★</Text>
-      </TouchableOpacity>
-
-                <View style={styles.noteActionsdelete}>
-                  
-                  <Button title="x" onPress={() => handleDeleteNote(note._id)} color="#d9534f" />
-                </View>
+                <TouchableOpacity onPress={() => toggleFavorite(note._id)} style={styles.starButton}>
+                  <Text style={[styles.star, note.isFavorite ? styles.favorited : {}]}>★</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleDeleteNote(note._id)} style={styles.deleteButton}>
+                  <Text style={styles.deleteButtonText}>x</Text>
+                </TouchableOpacity>
               </View>
             ))}
           </View>
-        ))}   
+        ))}
       </ScrollView>
       <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
         <Text style={styles.addButtonText}>+</Text>
@@ -468,7 +468,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '000000', // Keeping the text color as it is for contrast
+    color: '#000000', // Keeping the text color as it is for contrast
     marginBottom: 5,
   },
   addButton: {
@@ -546,6 +546,48 @@ const styles = StyleSheet.create({
     borderColor: '#B0E0E6', // Soft powder blue for the border
     borderRadius: 5,
     paddingHorizontal: 10,
-  }
+  },
+  actionButton: {
+    backgroundColor: '#6C63FF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  actionText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  starButton: {
+    position: 'absolute',
+    right: 50,
+    top: 10,
+    marginRight: 10,
+    padding:75,
+  },
+  star: {
+    fontSize: 25,
+    color: 'grey',
+  },
+  favorited: {
+    color: 'gold',
+  },
+  deleteButton: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+    backgroundColor: '#d9534f',
+    padding: 8,
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+
+
+
+
+
 });
+
 export default Home;

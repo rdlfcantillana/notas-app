@@ -163,7 +163,7 @@ const Categories = () => {
         )}
         
       />
-      <Button title="Delete All Folders" onPress={deleteUserFolders} color="red" />
+      <Button title="Delete All Categories" onPress={deleteUserFolders} color="red" />
     </View>
   );
 };
