@@ -430,7 +430,7 @@ const toggleFavorite = async (noteId: string) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4c3aa3', // Vibrant purple for background
+    backgroundColor: '#4c3aa3', 
     paddingHorizontal: 30,
     paddingTop: 10,
   },
@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   note: {
-    backgroundColor: '#EDE7F6', // Light purple background for notes
+    backgroundColor: '#EDE7F6', 
     padding: 15,
     borderRadius: 25,
     marginBottom: 10,
@@ -458,14 +458,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000000', // Keeping the text color as it is for contrast
+    color: '#000000',
     marginBottom: 5,
   },
   addButton: {
     position: 'absolute',
     right: 20,
     bottom: 20,
-    backgroundColor: '#6C63FF', // Vibrant purple for the add button
+    backgroundColor: '#6C63FF', 
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -479,7 +479,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     fontSize: 30,
-    color: '#FFFFFF', // White text for the add button
+    color: '#FFFFFF', 
   },
   modalView: {
     justifyContent:'center',
@@ -492,20 +492,20 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25, // Menos opacidad para la sombra
-    shadowRadius: 3.84, // Radio de sombra más pequeño
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.84, 
     elevation: 5,
-    marginHorizontal: 20, // Añade margen horizontal para no pegarse a los bordes de la pantalla
+    marginHorizontal: 20, 
   },
   input: {
     height: 50,
-    borderColor: '#B0E0E6', // Soft powder blue for the border
-    borderWidth: 2, // Thicker border as per previous adjustments
+    borderColor: '#B0E0E6', 
+    borderWidth: 2, 
     width: '100%',
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    backgroundColor: '#FFFFFF', // Keeping input background as white
+    backgroundColor: '#FFFFFF', 
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
@@ -515,7 +515,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 20,
-    color: '#FFFFFF', // Changed to white color
+    color: '#FFFFFF', 
   },
   noteActions: {
     flexDirection: 'row',
@@ -535,7 +535,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#B0E0E6', // Soft powder blue for the border
+    borderColor: '#B0E0E6', 
     borderRadius: 5,
     paddingHorizontal: 10,
   },
