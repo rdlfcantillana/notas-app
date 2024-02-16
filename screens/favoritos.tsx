@@ -19,10 +19,6 @@ const Favoritos: React.FC = () => {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [noteTitle, setNoteTitle] = useState('');
 
-  
-  // useEffect(() => {
-  //   loadFavorites();
-  // }, []);
 
   useEffect(() =>{
     if(Focused){

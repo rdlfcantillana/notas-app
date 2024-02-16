@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet,TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet,TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
@@ -11,7 +11,6 @@ interface UserData {
   username: string;
   email: string;
 }
-
 
 interface Note {
   _id: string;

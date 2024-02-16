@@ -15,8 +15,6 @@ interface Note {
   desc: string;
 }
 
-
-
 const Categories = () => {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [newFolderName, setNewFolderName] = useState('');
@@ -48,31 +46,6 @@ const Categories = () => {
       }
     };
   
-    // const loadNotesFromFolder = async (folderId: string) => {
-    //   try {
-    //     const response = await axios.get<Note[]>(`http://localhost:3000/getfoldernotes/${folderId}`, {
-    //       headers: { Authorization: `Bearer ${token}` },
-    //     });
-    //     setNotes(response.data);
-    //     const folder = folders.find(f => f._id === folderId);
-    //     setSelectedFolder(folder || null);
-    //   } catch (error) {
-    //     console.error(error);
-    //     Alert.alert('Error', 'Unable to fetch notes from the selected folder');
-    //   }
-    // };
-  // const loadFolders = async (authToken: string) => {
-  //   try {
-  //     const response = await axios.get<Folder[]>('http://localhost:3000/getuserfolders', {
-  //       headers: { Authorization: `Bearer ${authToken}` },
-  //     });
-  //     setFolders(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     Alert.alert('Error', 'Unable to fetch folders');
-  //   }
-  // };
-
   const createFolder = async () => {
     const token = await AsyncStorage.getItem('userToken');
   if (!token) return;
