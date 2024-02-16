@@ -149,7 +149,7 @@ const Favoritos: React.FC = () => {
           <TextInput
             placeholder="Descripción de la nota"
             value={noteDescription}
-            onChangeText={setNoteDescription}
+            onChangeText={(text) => setNoteDescription(text.substr(0, 250))}
             maxLength={250}
             style={styles.input}
             multiline

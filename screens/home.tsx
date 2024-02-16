@@ -367,7 +367,7 @@ const toggleFavorite = async (noteId: string) => {
           <TextInput
             placeholder="Note Description"
             value={noteDescription}
-            onChangeText={setNoteDescription}
+            onChangeText={(text) => setNoteDescription(text.substr(0, 250))}
             maxLength={250}
             style={styles.input}
             multiline
@@ -411,7 +411,7 @@ const toggleFavorite = async (noteId: string) => {
           <TextInput
             placeholder="Note Description"
             value={noteDescription}
-            onChangeText={setNoteDescription}
+            onChangeText={(text) => setNoteDescription(text.substr(0, 250))}
             maxLength={250}
             style={styles.input}
             multiline
