@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useMemo,ReactNode, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {View,TextInput,Button,Text,StyleSheet,Alert,ScrollView,Modal,TouchableOpacity,FlatList} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
-import DrawerNavigator from '../components/DrawerNavigator';
-import { HomeScreenNavigationProp } from '../navigation/navigationTypes';
 import { useIsFocused } from '@react-navigation/native';
 
 interface Note {
@@ -29,11 +27,11 @@ const Home: React.FC = () => {
   const Focused = useIsFocused();
   const [notes, setNotes] = useState<Note[]>([]);
   const [folders, setFolders] = useState<Folder[]>([]);
-  const [folderNotes, setFolderNotes] = useState<Note[]>([]);
   const [selectednoteFolder, setSelectednoteFolder] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   //modal de create
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   //variables de notas
   const [noteName, setNoteName] = useState<string>('');
@@ -48,11 +46,9 @@ const Home: React.FC = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   
 
-  useEffect(() => {
-  fetchFoldersAndNotes();
-  
-    
-  }, []);
+  // useEffect(() => {
+  // fetchFoldersAndNotes();
+  // }, []);
 
 
   useEffect(() =>{

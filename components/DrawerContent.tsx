@@ -23,7 +23,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <View style={styles.logoutButton}><br />
+      <View style={styles.logoutButton}>
         <Button title="Logout" onPress={handleLogout} color="#d9534f" />
       </View>
     </DrawerContentScrollView>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#ccc'
   },
-  // ... otros estilos que necesites
+
 });
 
 export default DrawerContent;
