@@ -1,16 +1,13 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './navigation/navigationTypes';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerNavigator from './components/DrawerNavigator';
 import { NoteProvider } from './screens/notecontext';
 import MainScreen from './screens/main';
 import Login from './screens/login';
 import Register from './screens/register';
-import Home from './screens/home';
 import Profile from './screens/profile';
 import Categories from './screens/categories';
 import Favoritos from './screens/favoritos';

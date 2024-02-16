@@ -252,18 +252,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   modalView: {
+    justifyContent:'center',
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 35,
+    borderRadius: 10, 
+    padding: 50, 
     alignItems: 'center',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
+    shadowOpacity: 0.25, // Menos opacidad para la sombra
+    shadowRadius: 3.84, // Radio de sombra más pequeño
     elevation: 5,
+    marginHorizontal: 20, // Añade margen horizontal para no pegarse a los bordes de la pantalla
   },
   input: {
     height: 50,
