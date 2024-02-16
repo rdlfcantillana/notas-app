@@ -320,17 +320,6 @@ const toggleFavorite = async (noteId: string) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
   return (
     <View style={styles.container}>
       
