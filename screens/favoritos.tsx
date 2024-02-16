@@ -53,22 +53,24 @@ const Favoritos: React.FC = () => {
 
   const handleUpdateNote = async () => {
     if (!selectedNote) return;
-
+  
     const token = await AsyncStorage.getItem('userToken');
     if (!token) {
       Alert.alert('Error', 'Debe iniciar sesión.');
       return;
     }
-
+  
     try {
       const response = await axios.put(`https://movil-app-production.up.railway.app/modifynotetitle`, {
         noteId: selectedNote._id,
         newTitle: noteTitle,
-        newContent: noteDescription,
+        newContent: noteDescription, // Asegúrate de que el backend procese esta propiedad
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
       if (response.status === 200) {
+        // Actualiza el estado con el título y la descripción nuevos
         setFavoritos(currentFavorites =>
           currentFavorites.map(note =>
             note._id === selectedNote._id ? { ...note, title: noteTitle, desc: noteDescription } : note
@@ -83,6 +85,9 @@ const Favoritos: React.FC = () => {
       Alert.alert('Error', 'No se pudo actualizar la nota');
     }
   };
+  
+  
+  
 
   const closeEditModal = () => {
     setEditModalVisible(false);

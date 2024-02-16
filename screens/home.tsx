@@ -431,8 +431,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#4c3aa3', // Vibrant purple for background
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: 30,
+    paddingTop: 10,
   },
   scrollView: {
     flex: 1,
@@ -440,8 +440,8 @@ const styles = StyleSheet.create({
   },
   note: {
     backgroundColor: '#EDE7F6', // Light purple background for notes
-    padding: 20,
-    borderRadius: 10,
+    padding: 15,
+    borderRadius: 25,
     marginBottom: 10,
     elevation: 3,
     shadowColor: '#000000',
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     backgroundColor: '#6C63FF',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
   },
   actionText: {
@@ -550,10 +550,10 @@ const styles = StyleSheet.create({
   },
   starButton: {
     position: 'absolute',
-    right: 50,
+    right: 60,
     top: 10,
     marginRight: 10,
-    padding:75,
+    padding:70,
   },
   star: {
     fontSize: 25,

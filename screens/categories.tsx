@@ -58,11 +58,11 @@ const Categories = () => {
     if (response.status === 201) {
       // Aquí se asume que la respuesta del servidor incluye la carpeta recién creada
       setFolders([...folders, response.data]);
-      Alert.alert('Success', 'Folder created successfully');
+      Alert.alert('Success', 'categorie created successfully');
     }
   } catch (error) {
     console.error(error);
-    Alert.alert('Error', 'Unable to create folder');
+    Alert.alert('Error', 'Unable to create categorie');
   }
 };
 
