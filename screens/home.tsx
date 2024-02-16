@@ -368,6 +368,7 @@ const toggleFavorite = async (noteId: string) => {
             placeholder="Note Description"
             value={noteDescription}
             onChangeText={setNoteDescription}
+            maxLength={250}
             style={styles.input}
             multiline
           />
@@ -398,7 +399,6 @@ const toggleFavorite = async (noteId: string) => {
         </View>
       </Modal>
 
-
       <Modal visible={editModalVisible} animationType="slide" transparent>
         {/* Contenido del modal para editar una nota existente */}
         <View style={styles.modalView}>
@@ -412,6 +412,7 @@ const toggleFavorite = async (noteId: string) => {
             placeholder="Note Description"
             value={noteDescription}
             onChangeText={setNoteDescription}
+            maxLength={250}
             style={styles.input}
             multiline
           />
@@ -571,10 +572,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-
-
-
-
 
 
 });

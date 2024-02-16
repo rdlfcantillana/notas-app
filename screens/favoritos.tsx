@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert,Modal,TextInput,Button } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Note {
   _id: string;
@@ -11,6 +12,7 @@ interface Note {
 }
 
 const Favoritos: React.FC = () => {
+  const Focused = useIsFocused();
   const [favoritos, setFavoritos] = useState<Note[]>([]);
   const [noteDescription, setNoteDescription] = useState<string>('');
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
@@ -18,9 +20,16 @@ const Favoritos: React.FC = () => {
   const [noteTitle, setNoteTitle] = useState('');
 
   
-  useEffect(() => {
-    loadFavorites();
-  }, []);
+  // useEffect(() => {
+  //   loadFavorites();
+  // }, []);
+
+  useEffect(() =>{
+    if(Focused){
+      loadFavorites();
+    }
+  } ,[Focused])
+
 
   const loadFavorites = async () => {
     const token = await AsyncStorage.getItem('userToken');
@@ -129,7 +138,6 @@ const Favoritos: React.FC = () => {
         keyExtractor={(item) => item._id}
         renderItem={renderItem}
       />
-
       <Modal visible={editModalVisible} animationType="slide" transparent>
         <View style={styles.modalView}>
           <TextInput
@@ -142,11 +150,12 @@ const Favoritos: React.FC = () => {
             placeholder="Descripción de la nota"
             value={noteDescription}
             onChangeText={setNoteDescription}
+            maxLength={250}
             style={styles.input}
             multiline
           />
-          <Button title="Actualizar Nota" onPress={handleUpdateNote} color="#5cb85c" />
-          <Button title="Cancelar" onPress={closeEditModal} color="#f0ad4e" />
+          <Button title="Update Note" onPress={handleUpdateNote} color="#5cb85c" />
+          <Button title="Cancel" onPress={closeEditModal} color="#f0ad4e" />
         </View>
       </Modal>
     </View>
@@ -206,7 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   note: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#EDE7F6', // Light purple background for notes
     padding: 20,
     borderRadius: 10,
     marginBottom: 10,
@@ -215,6 +224,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
+    transform: [{ scale: 1 }],
+    opacity: 1,
+  },
+  noteAnimated: {
+    transform: [{ scale: 1.05 }],
+    opacity: 0.8,
   },
   addButton: {
     position: 'absolute',
@@ -293,10 +308,10 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#FFFFFF',
-    padding: 10,
+    padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5,
+    borderRadius: 10,
     shadowOpacity: 0.2,
     shadowRadius: 1,
     shadowColor: '#000000',
