@@ -7,7 +7,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import DrawerNavigator from '../components/DrawerNavigator';
 import { HomeScreenNavigationProp } from '../navigation/navigationTypes';
-import { useNotes } from './notecontext';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Note {
   _id: string;
@@ -25,12 +25,8 @@ interface Folder {
 }
 
 
-interface ApiResponse<T> {
-  data: T;
-}
-
 const Home: React.FC = () => {
-  const { refreshNotes } = useNotes();
+  const Focused = useIsFocused();
   const [notes, setNotes] = useState<Note[]>([]);
   const [folders, setFolders] = useState<Folder[]>([]);
   const [folderNotes, setFolderNotes] = useState<Note[]>([]);
@@ -54,10 +50,16 @@ const Home: React.FC = () => {
 
   useEffect(() => {
   fetchFoldersAndNotes();
-  refreshNotes();
- 
-  }, [refreshNotes]);
+  
+    
+  }, []);
 
+
+  useEffect(() =>{
+    if(Focused){
+      fetchFoldersAndNotes();
+    }
+  } ,[Focused])
 
 // Esta función se asegura de cargar tanto las notas sin carpetas como las de cada carpeta.
 const fetchFoldersAndNotes = async () => {
@@ -170,7 +172,7 @@ const fetchFoldersAndNotes = async () => {
     
 
     setNotes(updatedNotes);
-    refreshNotes();
+
     // Reset states and close modal
     setSelectedNote(null);
     setNoteName('');
@@ -305,7 +307,7 @@ const toggleFavorite = async (noteId: string) => {
     const response = await axios.post(`https://movil-app-production.up.railway.app/togglefavorite/${noteId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    refreshNotes();
+
     if (response.status === 200) {
       setNotes((currentNotes) =>
         currentNotes.map((note) =>
