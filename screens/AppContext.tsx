@@ -18,7 +18,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [notess, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
-    // Lógica para cargar las notas...
   }, []);
 
   return <AppContext.Provider value={{ notess, setNotes }}>{children}</AppContext.Provider>;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert,Modal,TextInput,Button } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNotes } from './notecontext';
 
 interface Note {
   _id: string;
@@ -12,15 +11,10 @@ interface Note {
 }
 
 const Favoritos: React.FC = () => {
-  const { refreshNotes } = useNotes();
   const [favoritos, setFavoritos] = useState<Note[]>([]);
-  const [selectednoteFolder, setSelectednoteFolder] = useState<string | undefined>();
-  const [noteName, setNoteName] = useState<string>('');
   const [noteDescription, setNoteDescription] = useState<string>('');
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [note, setNotes] = useState<Note[]>([]);
   const [noteTitle, setNoteTitle] = useState('');
 
   

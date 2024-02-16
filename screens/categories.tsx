@@ -19,8 +19,6 @@ interface Note {
 
 const Categories = () => {
   const [folders, setFolders] = useState<Folder[]>([]);
-  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
-  const [notes, setNotes] = useState<Note[]>([]);
   const [newFolderName, setNewFolderName] = useState('');
   const [token, setToken] = useState<string | null>(null);
 
