@@ -9,6 +9,8 @@ import Favoritos from '../screens/favoritos';
 
 const Drawer = createDrawerNavigator();
 
+
+
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
