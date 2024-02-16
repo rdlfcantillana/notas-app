@@ -35,13 +35,13 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 const styles = StyleSheet.create({
   menuItem: {
  
-    marginBottom: 90,
+    marginBottom: 60,
 
     backgroundColor: '#e1b8f5',
 
     borderRadius: 30,
 
-    marginVertical: 200,
+    marginVertical: 80,
 
     shadowColor: '#000',
     shadowOffset: {
