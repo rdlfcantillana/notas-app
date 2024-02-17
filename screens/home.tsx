@@ -308,6 +308,11 @@ const toggleFavorite = async (noteId: string) => {
   }
 };
 
+const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
+const handlePressNote = (noteId: string) => {
+  setExpandedNoteId(expandedNoteId === noteId ? null : noteId);
+};
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -319,10 +324,24 @@ const toggleFavorite = async (noteId: string) => {
               {folderId === 'No Folder' ? 'Sin Carpeta' : folders.find(folder => folder._id === folderId)?.folderName || 'Carpeta Desconocida'}
             </Text>
             {notes.map(note => (
-              <View key={note._id} style={styles.note}>
-                {/* Aquí continúa tu renderizado actual de la nota */}
-                <Text style={styles.title}>{note.title}</Text>
-                <Text>{note.desc}</Text>
+  <View key={note._id} style={styles.note}>
+    {/* ... */}
+    <Text
+      onPress={() => handlePressNote(note._id)}
+      numberOfLines={expandedNoteId === note._id ? undefined : 1}
+      ellipsizeMode="tail" // para añadir puntos suspensivos al final si el texto se corta
+      style={styles.title}
+    >
+      {note.title}
+    </Text>
+    <Text
+      onPress={() => handlePressNote(note._id)}
+      numberOfLines={expandedNoteId === note._id ? undefined : 1}
+      ellipsizeMode="tail"
+      style={styles.description} // Asegúrate de que este estilo permita la expansión del texto
+    >
+      {note.desc}
+    </Text>
                 <View style={styles.noteActions}>
                   <TouchableOpacity onPress={() => handleEditPress(note)} style={styles.actionButton}>
                     <Text style={styles.actionText}>EDIT</Text>
@@ -420,6 +439,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#4c3aa3', 
     paddingHorizontal: 30,
     paddingTop: 10,
+  },
+  description: {
+    color: '#000',
+    // Si quieres, puedes agregar una altura máxima para la descripción no expandida
   },
   scrollView: {
     flex: 1,
