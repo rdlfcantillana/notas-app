@@ -211,17 +211,17 @@ const Favoritos: React.FC = () => {
         onPress={() => handlePressNote(item._id)}
       >
         {item.desc}
-      </Text>
-      <TouchableOpacity onPress={() => toggleFavorite(item._id)} style={styles.starButton}>
-                  <Text style={[styles.star, item.isFavorite ? styles.favorited : {}]}>★</Text>
-                </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDeleteNote(item._id)} style={styles.deleteButton}>
-                  <Text style={styles.deleteButtonText}>x</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleEditPress(item)} style={styles.actionButton}>
-                    <Text style={styles.actionText}>EDIT</Text>
-                  </TouchableOpacity>
-    </View>
+          </Text>
+        <TouchableOpacity onPress={() => toggleFavorite(item._id)} style={styles.starButton}>
+            <Text style={[styles.star, item.isFavorite ? styles.favorited : {}]}>★</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDeleteNote(item._id)} style={styles.deleteButton}>
+           <Text style={styles.deleteButtonText}>x</Text>
+        </TouchableOpacity>
+     <TouchableOpacity onPress={() => handleEditPress(item)} style={styles.actionButton}>
+       <Text style={styles.actionText}>EDIT</Text>
+    </TouchableOpacity>
+      </View>
   );
 
   return (
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: '#000000',
     marginBottom: 5,
   },
   editButton: {
@@ -356,12 +356,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
-  },
-  folderTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 20,
-    color: '#FF7F50', // Coral rojo para los títulos de las carpetas
   },
   noteActions: {
     flexDirection: 'row',
