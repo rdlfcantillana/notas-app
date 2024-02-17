@@ -219,7 +219,7 @@ const Favoritos: React.FC = () => {
            <Text style={styles.deleteButtonText}>x</Text>
         </TouchableOpacity>
      <TouchableOpacity onPress={() => handleEditPress(item)} style={styles.actionButton}>
-       <Text style={styles.actionText}>EDIT</Text>
+       <Text style={styles.actionText}>OPEN</Text>
     </TouchableOpacity>
       </View>
   );
@@ -244,7 +244,7 @@ const Favoritos: React.FC = () => {
             value={noteDescription}
             onChangeText={(text) => setNoteDescription(text.substr(0, 250))}
             maxLength={250}
-            style={styles.input}
+            style={styles.inputdescripcion}
             multiline
           />
           <Button title="Update Note" onPress={handleUpdateNote} color="#5cb85c" />
@@ -345,6 +345,20 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
+    borderColor: '#B0E0E6', 
+    borderWidth: 2, 
+    width: '100%',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF', 
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+  inputdescripcion:{
+    height: 100,
     borderColor: '#B0E0E6', 
     borderWidth: 2, 
     width: '100%',
