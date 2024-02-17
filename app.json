@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "notas-app",
-    "slug": "notas-aplicacion",
+    "slug": "notes-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,8 +11,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
- 
-    
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -31,9 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "482d963c-ade0-4974-94b8-52a62269bafd"
+        "projectId": "7aab3f15-7e53-4a86-af67-1351c4af12a1"
       }
     },
-    "owner": "Rodolfo and seth0094 "
+    "owner": "rdlfcantillana"
   }
 }
