@@ -442,7 +442,6 @@ const styles = StyleSheet.create({
   },
   description: {
     color: '#000',
-    // Si quieres, puedes agregar una altura máxima para la descripción no expandida
   },
   scrollView: {
     flex: 1,
@@ -584,8 +583,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-
-
 });
 
 export default Home;

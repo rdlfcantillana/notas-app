@@ -3,6 +3,7 @@ import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert,Modal,TextInp
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+import Home from './home';
 
 interface Note {
   _id: string;
@@ -18,6 +19,8 @@ const Favoritos: React.FC = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [noteTitle, setNoteTitle] = useState('');
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
 
 
@@ -32,6 +35,7 @@ const Favoritos: React.FC = () => {
   useEffect(() =>{
     if(Focused){
       loadFavorites();
+
     }
   } ,[Focused])
 
@@ -132,15 +136,42 @@ const Favoritos: React.FC = () => {
     }
   };
   
-  
-  
-
   const closeEditModal = () => {
     setEditModalVisible(false);
     setSelectedNote(null);
     setNoteTitle('');
     setNoteDescription('');
   };
+
+  const handleDeleteNote = async (noteId: string) => {
+    const token = await AsyncStorage.getItem('userToken');
+    if (!token) return;
+  
+    try {
+      const response = await axios.delete(`https://movil-app-production.up.railway.app/deletenoteid`, {
+        headers: { Authorization: `Bearer ${token}` },
+        data: { noteId }, // axios necesita el campo `data` para las peticiones DELETE
+      });
+  
+      if (response.status === 200) {
+        // Asegúrate de que estás llamando al estado correcto para actualizar
+        // Si estás en el componente de Favoritos, sería algo así:
+        setFavoritos(currentFavorites => currentFavorites.filter(note => note._id !== noteId));
+  
+        // Si estás en otro componente y pasaste la función `setNotes` como prop, usarías eso:
+        // setNotes(currentNotes => currentNotes.filter(note => note._id !== noteId));
+        
+        Alert.alert('Success', 'Note deleted successfully');
+      } else {
+        Alert.alert('Error', 'Note not deleted');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Unable to delete note');
+    }
+  };
+  
+
 
   const toggleFavorite = async (noteId: string) => {
     try {
@@ -167,14 +198,29 @@ const Favoritos: React.FC = () => {
     }
   };
 
+  const handlePressNote = (noteId: string) => {
+    setExpandedNoteId(expandedNoteId === noteId ? null : noteId);
+  };
+
   const renderItem = ({ item }: { item: Note }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text>{item.desc}</Text>
-      <TouchableOpacity onPress={() => toggleFavorite(item._id)}>
-        <Text style={{ color: item.isFavorite ? 'gold' : 'grey' }}>★</Text>
-      </TouchableOpacity>
-      <Button title="Editar" onPress={() => handleEditPress(item)} />
+     <Text style={styles.title}>{item.title}</Text>
+      <Text
+        numberOfLines={expandedNoteId === item._id ? undefined : 1}
+        ellipsizeMode="tail"
+        onPress={() => handlePressNote(item._id)}
+      >
+        {item.desc}
+      </Text>
+      <TouchableOpacity onPress={() => toggleFavorite(item._id)} style={styles.starButton}>
+                  <Text style={[styles.star, item.isFavorite ? styles.favorited : {}]}>★</Text>
+                </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDeleteNote(item._id)} style={styles.deleteButton}>
+                  <Text style={styles.deleteButtonText}>x</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleEditPress(item)} style={styles.actionButton}>
+                    <Text style={styles.actionText}>EDIT</Text>
+                  </TouchableOpacity>
     </View>
   );
 
@@ -214,8 +260,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#4c3aa3', 
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: 30,
+    paddingTop: 10,
   },
   scrollView: {
     flex: 1,
@@ -243,13 +289,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   editButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#FF4040', // Coral rojo para botones de edición
+    maxWidth: 100, 
+    backgroundColor: '#6C63FF',
+    padding: 8,
     borderRadius: 5,
-    elevation: 2,
+    justifyContent: 'center',
+    marginRight: 10,
   },
   description: {
     height: 50,
@@ -262,9 +307,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   note: {
-    backgroundColor: '#EDE7F6', // Light purple background for notes
-    padding: 20,
-    borderRadius: 10,
+    backgroundColor: '#EDE7F6', 
+    padding: 15,
+    borderRadius: 25,
     marginBottom: 10,
     elevation: 3,
     shadowColor: '#000000',
@@ -277,22 +322,6 @@ const styles = StyleSheet.create({
   noteAnimated: {
     transform: [{ scale: 1.05 }],
     opacity: 0.8,
-  },
-  addButton: {
-    position: 'absolute',
-    right: 20,
-    bottom: 20,
-    backgroundColor: '#FFC0CB', // Rosa para el botón de añadir
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 8,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   addButtonText: {
     fontSize: 30,
@@ -316,13 +345,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderColor: '#FFC0CB', // Rosa para el borde del input
-    borderWidth: 1,
+    borderColor: '#B0E0E6', 
+    borderWidth: 2, 
     width: '100%',
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF', 
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   folderTitle: {
     fontSize: 18,
@@ -337,27 +370,24 @@ const styles = StyleSheet.create({
   },
   noteActionsdelete: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
-    backgroundColor: '#FF4040', // Coral rojo para el botón de borrar
-    padding: 10,
-    borderRadius: 5,
-    elevation: 2,
+    position: 'absolute',
+    right: 10,
+    top: 10,
   },
   picker: {
     height: 50,
     width: '100%',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#FFC0CB', // Rosa para el borde del Picker
+    borderColor: '#B0E0E6', 
     borderRadius: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#FFFFFF',
   },
   item: {
     backgroundColor: '#FFFFFF',
-    padding: 20,
+    padding:20,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 10,
@@ -366,6 +396,46 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 1, width: 0 },
     elevation: 3,
+  },
+  starButton: {
+    position: 'absolute',
+    right: 60,
+    top: 10,
+    marginRight: 10,
+    padding:70,
+  },
+  star: {
+    fontSize: 25,
+    color: 'grey',
+  },
+  favorited: {
+    color: 'gold',
+  },
+  actionButton: {
+
+     width: 60, 
+     justifyContent: 'center',
+     alignItems: 'center',
+     backgroundColor: '#6C63FF',
+     padding: 8,
+     borderRadius: 5,
+     marginRight: 10,
+  },
+  actionText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  deleteButton: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+    backgroundColor: '#d9534f',
+    padding: 8,
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 export default Favoritos;
