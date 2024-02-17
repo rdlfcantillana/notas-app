@@ -45,12 +45,6 @@ const Home: React.FC = () => {
   //modal de edit
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   
-
-  // useEffect(() => {
-  // fetchFoldersAndNotes();
-  // }, []);
-
-
   useEffect(() =>{
     if(Focused){
       fetchFoldersAndNotes();
@@ -176,9 +170,7 @@ const fetchFoldersAndNotes = async () => {
     setEditModalVisible(false);
   };
   
- 
 
-  
 // Función para manejar la eliminación de notas
 const handleDeleteNote = async (noteId: string) => {
   const token = await AsyncStorage.getItem('userToken');
@@ -270,10 +262,6 @@ const sortedNotesByFolder = useMemo(() => {
 }, [notes]);
   
   
-
-
-
-
 const closeModal = () => {
   setModalVisible(false); // Cierra el modal
   // Restablece los estados a valores predeterminados
@@ -322,7 +310,6 @@ const toggleFavorite = async (noteId: string) => {
 
   return (
     <View style={styles.container}>
-      
       <ScrollView>
         {/* Renderizado de las notas */}
         {sortedNotesByFolder.map(([folderId, notes]) => (

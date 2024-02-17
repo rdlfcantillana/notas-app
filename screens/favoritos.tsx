@@ -20,6 +20,15 @@ const Favoritos: React.FC = () => {
   const [noteTitle, setNoteTitle] = useState('');
 
 
+
+  interface UpdateTitleResponse {
+    status: number;
+  }
+  
+  interface UpdateContentResponse {
+    status: number;
+  }
+
   useEffect(() =>{
     if(Focused){
       loadFavorites();
@@ -60,29 +69,66 @@ const Favoritos: React.FC = () => {
       return;
     }
   
-    try {
-      const response = await axios.put(`https://movil-app-production.up.railway.app/modifynotetitle`, {
-        noteId: selectedNote._id,
-        newTitle: noteTitle,
-        newContent: noteDescription, // Asegúrate de que el backend procese esta propiedad
-      }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      if (response.status === 200) {
-        // Actualiza el estado con el título y la descripción nuevos
-        setFavoritos(currentFavorites =>
-          currentFavorites.map(note =>
-            note._id === selectedNote._id ? { ...note, title: noteTitle, desc: noteDescription } : note
-          )
+    let isUpdateSuccessful = true;
+  
+    // Actualizar el título
+    if (selectedNote.title !== noteTitle) {
+      try {
+        const updateTitleResponse: UpdateTitleResponse = await axios.put(
+          `https://movil-app-production.up.railway.app/modifynotetitle`,
+          {
+            noteId: selectedNote._id,
+            newTitle: noteTitle,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
-        closeEditModal();
-      } else {
-        Alert.alert('Error', 'No se pudo actualizar la nota');
+  
+        if (updateTitleResponse.status !== 200) {
+          isUpdateSuccessful = false;
+          Alert.alert('Error', 'No se pudo actualizar el título de la nota');
+        }
+      } catch (error) {
+        console.error('Error al actualizar el título de la nota:', error);
+        isUpdateSuccessful = false;
+        Alert.alert('Error', 'No se pudo actualizar el título de la nota');
       }
-    } catch (error) {
-      console.error('Error al actualizar la nota:', error);
-      Alert.alert('Error', 'No se pudo actualizar la nota');
+    }
+  
+    // Actualizar la descripción
+    if (selectedNote.desc !== noteDescription && isUpdateSuccessful) {
+      try {
+        const updateContentResponse: UpdateContentResponse = await axios.put(
+          `https://movil-app-production.up.railway.app/modifyNoteContent`,
+          {
+            noteId: selectedNote._id,
+            newContent: noteDescription,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+  
+        if (updateContentResponse.status !== 200) {
+          isUpdateSuccessful = false;
+          Alert.alert('Error', 'No se pudo actualizar la descripción de la nota');
+        }
+      } catch (error) {
+        console.error('Error al actualizar la descripción de la nota:', error);
+        isUpdateSuccessful = false;
+        Alert.alert('Error', 'No se pudo actualizar la descripción de la nota');
+      }
+    }
+  
+    // Actualizar el estado
+    if (isUpdateSuccessful) {
+      setFavoritos((currentFavorites) =>
+        currentFavorites.map((note) =>
+          note._id === selectedNote._id ? { ...note, title: noteTitle, desc: noteDescription } : note
+        )
+      );
+      closeEditModal();
     }
   };
   
